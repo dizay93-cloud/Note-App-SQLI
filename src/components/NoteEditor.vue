@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useNotesStore } from '@/stores/notes'
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router'
 import { v4 as uuidv4 } from 'uuid'
 const store = useNotesStore()
 const route = useRoute()
@@ -13,11 +13,11 @@ const note = ref({
 function submitNote() {
   if (route.params.id) {
     store.editNote({ id: route.params.id, title: note.value.title, content: note.value.content })
-  }
-  else {
+  } else {
     store.addNote({ id: uuidv4(), title: note.value.title, content: note.value.content })
   }
-  router.push({ path: '/noteList' })}
+  router.push({ path: '/noteList' })
+}
 </script>
 
 <template>
@@ -25,15 +25,22 @@ function submitNote() {
     <form @submit.prevent="submitNote">
       <div class="mb-4">
         <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
-        <input id="title" type="text"
+        <input
+          id="title"
+          type="text"
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          v-model="note.title" />
+          v-model="note.title"
+        />
       </div>
       <div class="mb-4">
         <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Content</label>
-        <textarea id="content" type="text"
+        <textarea
+          id="content"
+          type="text"
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          v-model="note.content" rows="4" />
+          v-model="note.content"
+          rows="4"
+        />
       </div>
       <button class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600">
         save

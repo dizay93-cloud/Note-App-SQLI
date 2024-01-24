@@ -38,11 +38,10 @@ export const useNotesStore = defineStore('notes', {
       }
     },
     async removeNote(noteId) {
-      try{
+      try {
         await axios.delete(`http://localhost:3000/notes/${noteId}`)
         this.notes = this.fetchNotes()
-      }
-      catch (error) {
+      } catch (error) {
         console.error('ERROR Deleteing Note :', error)
       }
     }
