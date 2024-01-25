@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useNotesStore } from '@/stores/notes'
 import { useRoute, useRouter } from 'vue-router'
 import { v4 as uuidv4 } from 'uuid'
@@ -10,11 +10,30 @@ const note = ref({
   title: '',
   content: ''
 })
+const noteId = route.params.id
+onMounted(() => {
+  if (noteId) {
+    const currentNote = store.notes.find((note) => note.id === noteId)
+    if (currentNote) {
+      console.log(currentNote)
+      note.value.title = currentNote.title
+      note.value.content = currentNote.content
+    }
+  }
+}),
+  watch(route, async (r) => {
+    if (!r.params.id) {
+      note.value.title = ''
+      note.value.content = ''
+    }
+  })
 function submitNote() {
-  if (route.params.id) {
-    store.editNote({ id: route.params.id, title: note.value.title, content: note.value.content })
+  const noteId = route.params.id
+  const data = { title: note.value.title, content: note.value.content }
+  if (noteId) {
+    store.editNote({ id: noteId, ...data })
   } else {
-    store.addNote({ id: uuidv4(), title: note.value.title, content: note.value.content })
+    store.addNote({ id: uuidv4(), ...data })
   }
   router.push({ path: '/noteList' })
 }
