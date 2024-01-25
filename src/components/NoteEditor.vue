@@ -13,9 +13,8 @@ const note = ref({
 const noteId = route.params.id
 onMounted(() => {
   if (noteId) {
-    const currentNote = store.notes.find((note) => note.id === noteId)
+    const currentNote = store.getNoteById(noteId)
     if (currentNote) {
-      console.log(currentNote)
       note.value.title = currentNote.title
       note.value.content = currentNote.content
     }
