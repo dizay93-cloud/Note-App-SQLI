@@ -1,7 +1,7 @@
 // stores/counter.spec.ts
 import { setActivePinia, createPinia } from 'pinia'
 import { useNotesStore } from '../../stores/notes'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import axios from 'axios'
 
 vi.mock('axios')
@@ -14,7 +14,12 @@ describe('notes Store', () => {
     setActivePinia(createPinia())
   })
 
-  it('initial notes state', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+  })
+
+  it('check inital notes state', () => {
     const noteStore = useNotesStore()
     expect(noteStore.notes).length(0)
   })
