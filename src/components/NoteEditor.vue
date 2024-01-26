@@ -36,6 +36,7 @@ function submitNote() {
   }
   router.push({ path: '/noteList' })
 }
+
 </script>
 
 <template>
